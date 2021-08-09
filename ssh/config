@@ -1,0 +1,18 @@
+#config file for easier access via SSH
+
+StrictHostKeyChecking no
+
+Host controller
+    User vagrant
+    HostName 192.168.50.50
+    IdentityFile ~/.ssh/id_rsa
+
+Host jenkins
+    User vagrant
+    HostName 192.168.50.51
+    IdentityFile ~/.ssh/id_rsa
+
+Host production
+    User vagrant
+    HostName 192.168.50.52
+    IdentityFile ~/.ssh/id_rsa
