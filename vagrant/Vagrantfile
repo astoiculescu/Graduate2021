@@ -11,21 +11,21 @@ HOSTS = {
 $controller_shell = <<SCRIPT
 
   # install asnible https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
-  echo -e "\e[34mInstalling Ansible on controller"
+  echo -e "\e[34mInstalling Ansible on controller \e[0m"
   apt-get update >/dev/null
   apt-get install software-properties-common -y
   add-apt-repository --yes --update ppa:ansible/ansible
   apt-get update >/dev/null
-  apt-get install ansible
+  apt-get install ansible -y
 
-  echo -e "\e[34mGenerating SSH keys"  
+  echo -e "\e[34mGenerating SSH keys \e[0m"  
   ssh-keygen -t rsa -N '' -q -f /home/vagrant/.ssh/id_rsa
   cp -f /home/vagrant/.ssh/id_rsa.pub /vagrant/ssh/id_rsa.pub
   cp -f /home/vagrant/.ssh/id_rsa /vagrant/ssh/id_rsa
   cp /vagrant/ssh/config /home/vagrant/.ssh/config
   chmod 600 /home/vagrant/.ssh/config
 
-  echo "Configuring authorized_keys "
+  echo "\e[34mConfiguring authorized_keys \e[0m"
   (echo ; cat /vagrant/ssh/id_rsa.pub) >> /home/vagrant/.ssh/authorized_keys
   chmod 640 /home/vagrant/.ssh/authorized_keys
 
@@ -45,7 +45,7 @@ $others_shell = <<SCRIPT
 
   apt-get update >/dev/null
  
-  echo "Configuring authorized_keys "
+  echo "\e[34mConfiguring authorized_keys \e[0m"
   cat /vagrant/ssh/id_rsa.pub >> /home/vagrant/.ssh/authorized_keys
   chmod 640 /home/vagrant/.ssh/authorized_keys   
   echo "SUCCESS"
@@ -54,10 +54,10 @@ SCRIPT
 
 
 # install aditional plugins if requiered
-required_plugins = %w( vagrant-hostmanager vagrant-vbguest )
-required_plugins.each do |plugin|
-    exec "vagrant plugin install #{plugin}" unless Vagrant.has_plugin? plugin
-end
+# required_plugins = %w( vagrant-hostmanager vagrant-vbguest )
+# required_plugins.each do |plugin|
+#     exec "vagrant plugin install #{plugin}" unless Vagrant.has_plugin? plugin
+# end
 
 Vagrant.configure(2) do |config|
 
@@ -65,7 +65,7 @@ Vagrant.configure(2) do |config|
   config.vm.box_check_update = false
   config.vm.synced_folder "../", "/vagrant"
   config.vbguest.no_remote = true
-  config.vbguest.auto_update = true
+  config.vbguest.auto_update = false
   
   config.vm.provision "fix-no-tty", type: "shell" do |s|
     s.privileged = false
