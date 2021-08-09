@@ -40,7 +40,7 @@ $controller_shell = <<SCRIPT
 SCRIPT
 ######################################################################################################################
 
-########## CONFIGURE AUTHORIZED KEYS OTHER MACHINES ##########
+########## CONFIGURE SSH FOR THE OTHER MACHINES ##########
 $others_shell = <<SCRIPT
 
   apt-get update >/dev/null
