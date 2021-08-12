@@ -1,0 +1,6 @@
+---
+
+- hosts: jenkins_host
+  become: true
+  roles:
+    - { role: geerlingguy.jenkins }

@@ -1,0 +1,83 @@
+---
+- hosts: jenkins_host
+
+  tasks:
+  - name: Update APT package manager repositories cache
+    become: yes
+    apt:
+      update_cache: yes
+
+  - name: Install OpenJDK Java, Maven, Docker
+    become: yes
+    apt:
+      name: "{{ item }}"
+      state: present
+    with_items:
+     - openjdk-8-jdk
+     - maven
+     - docker.io
+
+  # - name: Install Maven
+  #   become: yes
+  #   apt:
+  #     name: "{{ item }}"
+  #     state: present
+  #   with_items:
+  #    maven
+  
+  # - name: Install Docker
+  #   become: yes
+  #   apt:
+  #     name: "{{ item }}"
+  #     state: present
+  #   with_items:
+  #    docker.io
+
+  - name: Fix Docker perimissions
+    become: yes
+    ansible.builtin.shell: sudo chmod 666 /var/run/docker.sock
+
+########## INSTALL TOMCAT #########
+  # - name: Add tomcat group
+  #   become: yes
+  #   group:
+  #     name: tomcat
+    
+  # - name: Add "tomcat" user
+  #   become: yes
+  #   user:
+  #     name: tomcat
+  #     group: tomcat
+  #     home: /home/tomcat
+  #     system: yes
+  
+  # - name: Create tomcat directory in /usr/share/
+  #   become: yes
+  #   file:
+  #     path: /usr/share/tomcat
+  #     state: directory
+
+  # - name: Change tomcat directory permissions
+  #   become: yes
+  #   ansible.builtin.file:
+  #     path: /usr/share/tomcat
+  #     owner: tomcat
+  #     group: tomcat
+  #     mode: '0777'
+
+  # - name: Download tomcat server packages
+  #   become_user: tomcat
+  #   get_url:
+  #     url: https://mirror.efect.ro/apache/tomcat/tomcat-8/v8.5.69/bin/apache-tomcat-8.5.69.tar.gz
+  #     dest: /usr/share/tomcat
+
+  # - name: Extract tomcat packages
+  #   become_user: tomcat
+  #   unarchive:
+  #     src: /usr/share/tomcat/apache-tomcat-8.5.69.tar.gz
+  #     dest: /usr/share/tomcat
+  #     remote_src: yes
+
+  # - name: Start tomcat services
+  #   become_user: tomcat
+  #   shell: nohup /usr/share/tomcat/apache-tomcat-8.5.69/bin/startup.sh
