@@ -1,5 +1,5 @@
 ---
-- hosts: jenkins_host
+- hosts: all_hosts
 
   tasks:
   - name: Update APT package manager repositories cache
