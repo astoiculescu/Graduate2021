@@ -35,6 +35,22 @@ $controller_shell = <<SCRIPT
   chown vagrant:vagrant /home/vagrant/ -R
   
   echo "SUCCESS"
+  
+#   # install jenkins role
+#   ansible-galaxy install geerlingguy.jenkins
+  
+#   # edit downloaded role main.yaml file (change plugin timeout and add the list of plugins)
+#   sudo nano /home/vagrant/.ansible/roles/geerlingguy.jenkins/defaults/main.yml
+#   jenkins_plugins: [javadoc,bootstrap4-api,bootstrap5-api,jackson2-api,junit,echarts-api,token-macro,pipeline,pipeline-model-api,workflow-api,workflow-step-api,workflow-support,workflow-job,pipeline-model-definition,docker-commons,docker-workflow,workflow-multibranch,git,pipeline-github,github-branch-source,maven-plugin,timestamper,blueocean-bitbucket-pipeline,blueocean-commons,blueocean-config,blueocean-core-js,blueocean-dashboard,blueocean-events,blueocean-git-pipeline,blueocean-github-pipeline,blueocean-i18n,blueocean-jwt,blueocean-personalization,blueocean-pipeline-api-impl,blueocean-pipeline-editor,blueocean-rest-impl,blueocean-rest,blueocean-web,jenkins-design-language,blueocean-autofavorite,blueocean-display-url,pipeline-build-step,pipeline-milestone-step,blueocean-display-url,blueocean,jsch,publish-over,structs,publish-over-ssh,run-condition,conditional-buildstep,parameterized-trigger,build-pipeline-plugin/1.5.7.1,script-security,job-dsl]
+  
+#   # install java, maven, docker on jenkins machine
+#   ansible-playbook playbook.yaml  
+
+#   #create jenkins user on jenkins machine
+#   sudo useradd -m -d /var/lib/jenkins jenkins
+
+#   #install jenkins on jenkins machine
+#   ansible-playbook jenkins.yaml
 
 SCRIPT
 
